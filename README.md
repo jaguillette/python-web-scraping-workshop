@@ -6,7 +6,7 @@ These are the materials for a workshop on web scraping with python that I'm deve
 
 The dependencies of this repo are managed by `poetry`. To use poetry to manage the dependencies, install it on your system, then run `poetry install` to set up the dependencies, then use this command to set up a shell that uses the new environment:
 
-    source`poetry env info --path`/bin/activate
+    source `poetry env info --path`/bin/activate
 
 The dependencies are also articulated in `pyproject.toml`, so that can be used as a reference for installation. Maybe there's a way to use those dependencies with `pip` or `conda`, which people who aren't as deep into Python are more likely to have, but I don't know yet.
 
