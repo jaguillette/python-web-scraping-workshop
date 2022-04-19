@@ -4,7 +4,7 @@
 format: jb-book
 root: intro
 chapters:
-- file: scraperChrome
-- file: requests
-- file: beautifulSoup
-- file: selenium
+- file: 01_scraperChrome
+- file: 02_requests
+- file: 03_beautifulSoup
+- file: 04_selenium
