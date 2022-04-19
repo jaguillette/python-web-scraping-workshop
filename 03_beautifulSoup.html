@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beautiful Soup &#8212; Web Scraping with Python</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Selenium" href="04_selenium.html" />
+    <link rel="prev" title="Requests" href="02_requests.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Web Scraping with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Web Scraping with Python
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_scraperChrome.html">
+   Chrome Scraper Tool
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_requests.html">
+   Requests
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Beautiful Soup
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_selenium.html">
+   Selenium
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/03_beautifulSoup.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/jaguillette/python-web-scraping-workshop"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/jaguillette/python-web-scraping-workshop/issues/new?title=Issue%20on%20page%20%2F03_beautifulSoup.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/jaguillette/python-web-scraping-workshop/main?urlpath=tree/docs/03_beautifulSoup.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scraping-data">
+   Scraping data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list-comprehension">
+     List comprehension
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#f-strings">
+     f-strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regular-expressions">
+     Regular expressions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-scraping-function">
+   Making a scraping function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-spreadsheet-with-pandas">
+   Making a spreadsheet with pandas
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#expanding-the-scope-of-the-scrape">
+   Expanding the scope of the scrape
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#completed-scrape">
+   Completed scrape
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Beautiful Soup</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup">
+   Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scraping-data">
+   Scraping data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#list-comprehension">
+     List comprehension
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#f-strings">
+     f-strings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#regular-expressions">
+     Regular expressions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-scraping-function">
+   Making a scraping function
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#making-a-spreadsheet-with-pandas">
+   Making a spreadsheet with pandas
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#expanding-the-scope-of-the-scrape">
+   Expanding the scope of the scrape
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#completed-scrape">
+   Completed scrape
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="beautiful-soup">
+<h1>Beautiful Soup<a class="headerlink" href="#beautiful-soup" title="Permalink to this headline">¶</a></h1>
+<p>Beautiful soup is a pretty common and easy to use library for parsing HTML documents, which is what we need to do in web scraping.</p>
+<p>We’ll be using <code class="docutils literal notranslate"><span class="pre">requests</span></code> to fetch webpages, and <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code> to parse them. We’re still working with our <a class="reference external" href="https://en.wikipedia.org/wiki/Lists_of_legendary_creatures">list of lists of legendary creatures</a> from Wikipedia.</p>
+<p>We only fetched that landing page last time, but now we want to actually scrape data from each list. Looking at the lists, we can see that they have information about the names and origins of these creatures, as well as links to the wiki pages for the creatures and their culture of origin.</p>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>First we need to set up our libraries, starting url, and initial text, using <code class="docutils literal notranslate"><span class="pre">requests</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import all of our tools</span>
+<span class="c1"># In addition to BeautifulSoup and requests, we also have re, time, and pandas</span>
+<span class="c1"># re gives us the ability to extract data with regular expressions</span>
+<span class="c1"># pandas gives us an easy way to export our data as csv</span>
+<span class="c1"># time gives us the ability to have Python chill out for a bit between page requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define our start url</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/Lists_of_legendary_creatures&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get the text for our starting page</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="scraping-data">
+<h2>Scraping data<a class="headerlink" href="#scraping-data" title="Permalink to this headline">¶</a></h2>
+<p>We’re going to set up our “soup”, an object representing the page that we can use to select content from.</p>
+<p>You’ll probably find it helpful to reference the <a class="reference external" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/#quick-start">Beautiful Soup documentation</a> when working on your own scraping projects.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Just verifying what kind of thing soup is</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The first thing that we’ll need to do is to get a list of the pages that we’ll want to scrape data off of. They’re all listed here, so we can first scrape the links to those pages. This is just going to get us a collection of links to the pages that we want to scrape data from, not any of the data itself, but it’s a simple process so it’s a good introduction to Beautiful Soup.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>It looks like the list we’re after is the second list on the page. Since Python is 0-indexed, that will be accessed with <code class="docutils literal notranslate"><span class="pre">[1]</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">alphaList</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># What kind of thing is this?</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">alphaList</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>On bs4 tag objects, you can use <code class="docutils literal notranslate"><span class="pre">.text</span></code> to get the plain text within the tag, with all of the HTML and formatting taken out. This is generally handy, but especially when you find yourself trying to extract data that has a bunch of styling tags that you don’t care about.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">alphaList</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can still use <code class="docutils literal notranslate"><span class="pre">.find_all()</span></code> on the tag we extracted, so we can run a <code class="docutils literal notranslate"><span class="pre">.find_all('a')</span></code> on our list of page links. That gives us a list of bs4 tags, but what we want are urls we can use. To do that, we can get the <code class="docutils literal notranslate"><span class="pre">href</span></code> property with <code class="docutils literal notranslate"><span class="pre">['href']</span></code></p>
+<div class="section" id="list-comprehension">
+<h3>List comprehension<a class="headerlink" href="#list-comprehension" title="Permalink to this headline">¶</a></h3>
+<p>I’ve put this together in a list comprehension. This is a common way in Python to make a list from something else you can iterate through. A less compact approach would look like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">listPageLinks</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphaList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">):</span>
+    <span class="n">listItem</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="n">listPageLinks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">listItem</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A list comprehension lets you shrink that down, so that if you have a simple operation you want to perform on every item in a list to make a new list, you can do that very easily.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">listPageLinks</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alphaList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+<span class="n">listPageLinks</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>So now we have a list of partial links to all of the pages that we want to iterate through and scrape data off of. Now we can take one of those pages and test out a process for extracting data from the page. If you click through the alphabetical lists of creatures, you’ll see that they have more or less the same structure, so once we figure out a process to scrape data from one page with our script, we’ll be able to apply it to all of the pages.</p>
+</div>
+<div class="section" id="f-strings">
+<h3>f-strings<a class="headerlink" href="#f-strings" title="Permalink to this headline">¶</a></h3>
+<p>To start, we’ll pull the first link from our list. I’m using an f-string to create the full url, which is a new string formatting method introduced in Python 3.6. You can read more about it in an <a class="reference external" href="https://realpython.com/python-f-strings/">f-string overview from RealPython</a>, but for our purposes all you need to know is that if you put an <code class="docutils literal notranslate"><span class="pre">f</span></code> before the quotation marks of your string, you can insert variables and Python code into strings, as long as you surround the code with curly braces: <code class="docutils literal notranslate"><span class="pre">{}</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newUrl</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://en.wikipedia.org</span><span class="si">{</span><span class="n">listPageLinks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">newUrl</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a new soup object to extract new data</span>
+<span class="n">newSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">newUrl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="nb">type</span><span class="p">(</span><span class="n">newSoup</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once again, we can look for unorderd list tags.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">newSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The first ul looks like the one we want</span>
+<span class="n">creatureList</span> <span class="o">=</span> <span class="n">newSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can get the first creature in the list by finding all li elements </span>
+<span class="c1"># and getting the first one</span>
+<span class="n">testCreature</span> <span class="o">=</span> <span class="n">creatureList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">testCreature</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Using .text gets us the plain text of the element with no HTML markup</span>
+<span class="n">testCreature</span><span class="o">.</span><span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calling the built-in method str() on the element gets us the full raw HTML</span>
+<span class="nb">str</span><span class="p">(</span><span class="n">testCreature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For the name, all we need is the text of the first link element</span>
+<span class="n">name</span> <span class="o">=</span> <span class="n">testCreature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<span class="n">name</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also get the href attribute of that first link</span>
+<span class="n">pageLink</span> <span class="o">=</span> <span class="n">testCreature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+<span class="n">pageLink</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="regular-expressions">
+<h3>Regular expressions<a class="headerlink" href="#regular-expressions" title="Permalink to this headline">¶</a></h3>
+<p>We’re about to dip our toes into regular expressions, just a little bit. Regular expressions are another way to extract information from text. Where xpath and css selectors rely on the structure of an HTML document, regular expressions allow you to articulate general patterns in text, whether it’s marked up in HTML or not.</p>
+<p>Getting familiar with regular expressions takes time, but there are a few things to know that will help you get started:</p>
+<ul class="simple">
+<li><p>Each text character is an instruction of some kind. For most text characters, that instruction is just “match this one letter exactly”, but it’s still an instruction. Special characters carry special instructions.</p></li>
+<li><p>The “dot”, <code class="docutils literal notranslate"><span class="pre">.</span></code>, matches any character.</p></li>
+<li><p>“Quantifiers” change how many of the previous thing can be matched. The quantifiers are:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">+</span></code> matches the thing before it one or more times, so whatever is before it still has to be there, but may occur many times.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*</span></code> matches the thing before it zero or more times, so whatever is before it is optional</p></li>
+</ul>
+</li>
+<li><p>If you want to actually match a character that normally has an instruction associated, you can “escape” it with <code class="docutils literal notranslate"><span class="pre">\</span></code>. If you want to literally match a period, you can use <code class="docutils literal notranslate"><span class="pre">\.</span></code></p></li>
+<li><p>You can extract just part of an expression by enclosing it with <code class="docutils literal notranslate"><span class="pre">()</span></code>. This allows you to use some text around the thing that you’re interested in to find it, but not keep that extra cruft in the data that you extract.</p></li>
+</ul>
+<p>We’re just scratching the surface of regular expressions, but that should be enough to let you know what’s happening in the regular expression we’ll use. You can take a closer look at <a class="reference external" href="https://regex101.com/r/SNA9xe/1">regex101</a>, where I’ve set up the expression along with the HTML of our first list item, so that you can take a look at how it works. You can also check out the quick reference in the bottom of regex101, which has a much more thorough overview of things you can do.</p>
+<p>If you want a structured way to learn regular expressions syntax, <a class="reference external" href="https://regexone.com/">regexone</a> is a good tutorial site, and if you like puzzles, <a class="reference external" href="https://regexcrossword.com/">regex crossword</a> is good for practice.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">origin</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.*)\)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">testCreature</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">origin</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can make a new soup from what our regex found</span>
+<span class="c1"># That way we can leverage the HTML structure of our document to extract info</span>
+<span class="n">originSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+<span class="n">originName</span> <span class="o">=</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<span class="n">originName</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can also get the link pretty easily</span>
+<span class="n">originLink</span> <span class="o">=</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+<span class="n">originLink</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="making-a-scraping-function">
+<h2>Making a scraping function<a class="headerlink" href="#making-a-scraping-function" title="Permalink to this headline">¶</a></h2>
+<p>Now that we’ve tested out a process for extracting information from that first list item, we can make a function to generalize the process for every list item. If you’re new to Python, you might not have defined many functions, but it’s easy to do, and lets you distill a process and make it repeatable. This function is set up to return a dictionary with the name, page link, origin names, and origin links from one of the creatures on our list. You’ll notice that origin names and links are set up as lists, because I noticed on the page that sometimes a legendary creature is associated with more than one cultural origin.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">pageLink</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.*)\)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">creature</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">originSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+    <span class="n">originNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+    <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;pageLink&quot;</span><span class="p">:</span> <span class="n">pageLink</span><span class="p">,</span>
+        <span class="s2">&quot;originNames&quot;</span><span class="p">:</span> <span class="n">originNames</span><span class="p">,</span>
+        <span class="s2">&quot;originLinks&quot;</span><span class="p">:</span> <span class="n">originLinks</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s try out this function on our test creature</span>
+<span class="c1"># This should work, since it&#39;s the same data we used to test on</span>
+<span class="n">parse_creature</span><span class="p">(</span><span class="n">testCreature</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With our function created, it’s now very easy to loop through all of the list items in our list of legendary creatures that start with “A” to extract information about them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">creature</span> <span class="ow">in</span> <span class="n">creatureList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can make this into a list with a list comprehension</span>
+<span class="n">aCreatures</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">)</span> <span class="k">for</span> <span class="n">creature</span> <span class="ow">in</span> <span class="n">creatureList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="making-a-spreadsheet-with-pandas">
+<h2>Making a spreadsheet with pandas<a class="headerlink" href="#making-a-spreadsheet-with-pandas" title="Permalink to this headline">¶</a></h2>
+<p>Pandas does a lot of stuff that I’m not going to get into here (that’s a topic for another workshop), but one thing that it’s very good at is taking different kinds of Python data structures and turning them into tabular data. You can often just call <code class="docutils literal notranslate"><span class="pre">pd.DataFrame()</span></code> on an object containing data that you want to make tabular, and as long as you’re thinking about data in the same way that pandas does, it’ll do the trick. A list of dictionaries with common keys is one structure that this method understands, so we can use it to inspect our data</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">aCreatures</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="expanding-the-scope-of-the-scrape">
+<h2>Expanding the scope of the scrape<a class="headerlink" href="#expanding-the-scope-of-the-scrape" title="Permalink to this headline">¶</a></h2>
+<p>Now that we’ve got a function for extracting data from a list entry, and we know how to use it to iterate over all of the list items in a page, we can make a function that takes a url and does the whole scraping process for us on a single page.</p>
+<p>This function will fetch the page, parse it with beautiful soup, extract a list of legendary creatures, and then extract all of the information about those creatures into a list, which the function returns as output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">scrape_creature_page</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">creatureList</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">creatures</span> <span class="o">=</span> <span class="p">[</span><span class="n">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">)</span> <span class="k">for</span> <span class="n">creature</span> <span class="ow">in</span> <span class="n">creatureList</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">creatures</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s use this function on the third page in our dataset, as a test</span>
+<span class="n">scrape_creature_page</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;https://en.wikipedia.org</span><span class="si">{</span><span class="n">listPageLinks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Errored! Looking at the error, there’s a “list index out of range”. In the stack trace, that’s happening when we’re trying to extract the origin with a regular expression. The list index used on that line is to get the first result from the regular expression. The fact that we’re getting an index error when trying to use the first item in a list of regex matches tells us that the regex didn’t turn up any results. We’ll have to adjust our script to accommodate.</p>
+<p>In python, you can use a <code class="docutils literal notranslate"><span class="pre">try</span></code> block in situations like this. That’s a way of saying “try this, and if it fails in a specific way, do something else without crashing out like you normally do”. In our case, we can say “try to extract the origin with a regular expression, and if you don’t find anything, set the origin names and links to an empty list, then print the element that failed out so we can look at it”</p>
+<p>In this notebook, I’m redefining functions as we go. This is just for learning purposes, so that the iterative process of trying stuff out, encountering errors, and fixing them in a function is explicit. When you’re scraping on your own, just change the function definition in the initial cell, rather than copying it and making a new one. Having multiple function definitions for the same function name is confusing, and makes it easier for you to have a bad time in your notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">pageLink</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.*)\)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">creature</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">originSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No origin found in </span><span class="si">{</span><span class="n">creature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;pageLink&quot;</span><span class="p">:</span> <span class="n">pageLink</span><span class="p">,</span>
+        <span class="s2">&quot;originNames&quot;</span><span class="p">:</span> <span class="n">originNames</span><span class="p">,</span>
+        <span class="s2">&quot;originLinks&quot;</span><span class="p">:</span> <span class="n">originLinks</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">scrape_creature_page</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;https://en.wikipedia.org</span><span class="si">{</span><span class="n">listPageLinks</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Hey, it worked! That third page scraped successfully, and looking at the entry where our script couldn’t find an origin, we can confirm that there was no origin to be found. That kind of verification is important in web scraping, since you might run into some different repeated patterns in how data is organized in a website that you might want to accommodate.</p>
+<p>Now we’re ready to try out our function on all of our links!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">allCreatures</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">listPageLinks</span><span class="p">:</span>
+    <span class="n">allCreatures</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">scrape_creature_page</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;https://en.wikipedia.org</span><span class="si">{</span><span class="n">link</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Oh no, more errors! In this case, we see that it’s an attribute error. Something that’s a <code class="docutils literal notranslate"><span class="pre">NoneType</span></code> was trying to read a <code class="docutils literal notranslate"><span class="pre">.text</span></code> attribute. Looking at the stack trace, we see that <code class="docutils literal notranslate"><span class="pre">creature.find('a')</span></code> was trying to read a <code class="docutils literal notranslate"><span class="pre">.text</span></code> attribute, so it looks like that was returning <code class="docutils literal notranslate"><span class="pre">None</span></code>. We can approach this in a similar way to how we approached the missing origin error:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find link in </span><span class="si">{</span><span class="n">creature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.*)\)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">creature</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">originSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No origin found in </span><span class="si">{</span><span class="n">creature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;pageLink&quot;</span><span class="p">:</span> <span class="n">pageLink</span><span class="p">,</span>
+        <span class="s2">&quot;originNames&quot;</span><span class="p">:</span> <span class="n">originNames</span><span class="p">,</span>
+        <span class="s2">&quot;originLinks&quot;</span><span class="p">:</span> <span class="n">originLinks</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">allCreatures</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">listPageLinks</span><span class="p">:</span>
+    <span class="n">allCreatures</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">scrape_creature_page</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;https://en.wikipedia.org</span><span class="si">{</span><span class="n">link</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>No errors! In looking through the printouts from lines that were missing an origin or a link, we can see that it’s mostly true. I see some at the end where the format is “Creature - Origin” rather than “Creature (Origin)”, but it looks like there’s only three of them, so it’s not worth rewriting the regular expression to accommodate.</p>
+<p>However, looking through these errors brings up a good idea. It’s helpful to keep the original text from which the info was extracted, so let’s include that in our output.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_creature</span><span class="p">(</span><span class="n">creature</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="n">creature</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">pageLink</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find link in </span><span class="si">{</span><span class="n">creature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\((.*)\)&quot;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">creature</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">originSoup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">origin</span><span class="p">)</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">originSoup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="n">originNames</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">originLinks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No origin found in </span><span class="si">{</span><span class="n">creature</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;pageLink&quot;</span><span class="p">:</span> <span class="n">pageLink</span><span class="p">,</span>
+        <span class="s2">&quot;originNames&quot;</span><span class="p">:</span> <span class="n">originNames</span><span class="p">,</span>
+        <span class="s2">&quot;originLinks&quot;</span><span class="p">:</span> <span class="n">originLinks</span><span class="p">,</span>
+        <span class="s2">&quot;sourceText&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">creature</span><span class="p">)</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="completed-scrape">
+<h2>Completed scrape<a class="headerlink" href="#completed-scrape" title="Permalink to this headline">¶</a></h2>
+<p>With those functions defined, our final scrape is a pretty short command that builds on all of the work we’ve done so far. These 4 lines will grab all of the data we’ve defined and add it to the <code class="docutils literal notranslate"><span class="pre">allCreatures</span></code> list, which we can export to a spreadsheet with <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">allCreatures</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">listPageLinks</span><span class="p">:</span>
+    <span class="n">allCreatures</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">scrape_creature_page</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;https://en.wikipedia.org</span><span class="si">{</span><span class="n">link</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>With all that data extracted, we can take a look at it in pandas:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allCreatures</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The other thing that we’ll use pandas for is exporting to CSV. If you’ve tried to use Python’s built-in methods for handling CSV data, this will be a welcome change of pace: just one line to export to CSV.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">allCreatures</span><span class="p">)</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;legendary_creatures.csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02_requests.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Requests</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="04_selenium.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Selenium</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Jeremy Guillette<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

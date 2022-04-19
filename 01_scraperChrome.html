@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Web Scraping with Python &#8212; Web Scraping with Python</title>
+    <title>Chrome Scraper Tool &#8212; Web Scraping with Python</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -53,7 +53,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Chrome Scraper Tool" href="01_scraperChrome.html" />
+    <link rel="next" title="Requests" href="02_requests.html" />
+    <link rel="prev" title="Web Scraping with Python" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -91,15 +92,15 @@ const thebe_selector_output = ".output, .cell_output"
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
- <li class="toctree-l1 current">
-  <a class="reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
    Web Scraping with Python
   </a>
  </li>
 </ul>
-<ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01_scraperChrome.html">
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Chrome Scraper Tool
   </a>
  </li>
@@ -159,7 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+        <a class="dropdown-buttons" href="_sources/01_scraperChrome.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -179,7 +180,7 @@ const thebe_selector_output = ".output, .cell_output"
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/jaguillette/python-web-scraping-workshop/issues/new?title=Issue%20on%20page%20%2Fintro.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/jaguillette/python-web-scraping-workshop/issues/new?title=Issue%20on%20page%20%2F01_scraperChrome.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
         
@@ -206,35 +207,18 @@ const thebe_selector_output = ".output, .cell_output"
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-set-up">
-   Getting set up
+  <a class="reference internal nav-link" href="#scraper-interface">
+   Scraper Interface
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-1-poetry">
-     Option 1: Poetry
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-2-pip">
-     Option 2: pip
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-3-manual-install">
-     Option 3: Manual install
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#selenium">
-     Selenium
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-these-materials">
-   Using these materials
+  <a class="reference internal nav-link" href="#extracting-data">
+   Extracting Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finishing-the-scrape">
+   Finishing the Scrape
   </a>
  </li>
 </ul>
@@ -247,7 +231,7 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Web Scraping with Python</h1>
+                <h1>Chrome Scraper Tool</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -258,35 +242,18 @@ const thebe_selector_output = ".output, .cell_output"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#getting-set-up">
-   Getting set up
+  <a class="reference internal nav-link" href="#scraper-interface">
+   Scraper Interface
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-1-poetry">
-     Option 1: Poetry
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-2-pip">
-     Option 2: pip
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#option-3-manual-install">
-     Option 3: Manual install
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#selenium">
-     Selenium
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-these-materials">
-   Using these materials
+  <a class="reference internal nav-link" href="#extracting-data">
+   Extracting Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finishing-the-scrape">
+   Finishing the Scrape
   </a>
  </li>
 </ul>
@@ -298,52 +265,84 @@ const thebe_selector_output = ".output, .cell_output"
             
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="web-scraping-with-python">
-<h1>Web Scraping with Python<a class="headerlink" href="#web-scraping-with-python" title="Permalink to this headline">¶</a></h1>
-<p>This site is a collection of materials for a workshop on web scraping with Python. It’s intended to be used during the workshop, and for participants to reference after the fact. Even if you’re not attending this workshop, you might find it valuable to go through the code examples on your own, just know that that’s not the primary purpose of the materials.</p>
-<div class="section" id="getting-set-up">
-<h2>Getting set up<a class="headerlink" href="#getting-set-up" title="Permalink to this headline">¶</a></h2>
-<p>The materials here require Python 3.8+, as well as a number of libraries. There are a few different ways to make sure that you have all of the dependencies set up. For any of them, it’s best if you download or clone the <a class="reference external" href="https://github.com/jaguillette/python-web-scraping-workshop">repository for this site</a>. All of the files for the contents of the workshop are in the <code class="docutils literal notranslate"><span class="pre">book</span></code> directory of the repository, but downloading the repository will also give you the setup information outside of that repository.</p>
-<div class="section" id="option-1-poetry">
-<h3>Option 1: Poetry<a class="headerlink" href="#option-1-poetry" title="Permalink to this headline">¶</a></h3>
-<p>I’m using poetry to manage my environment for this workshop, to make sure that I have an accurate list of what libraries are required for you to run my code. If you want to do the same, you can <a class="reference external" href="https://python-poetry.org/docs/">install poetry</a>, then run <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">install</span></code> in your terminal the directory where you saved this repository. That will create a virtual environment that matches mine.</p>
-<p>You still need to activate the environment after creating it. There are <a class="reference external" href="https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment">a few options for activating your environment</a>, but I prefer running this line of code:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>source `poetry env info --path`/bin/activate
+  <div class="tex2jax_ignore mathjax_ignore section" id="chrome-scraper-tool">
+<h1>Chrome Scraper Tool<a class="headerlink" href="#chrome-scraper-tool" title="Permalink to this headline">¶</a></h1>
+<p>To start, we won’t be using Python at all. We’ll be using a free browser extension for Google Chrome that I find helpful for scraping data from a single page of data that isn’t friendly to copying and pasting.</p>
+<p>The tool is called <a class="reference external" href="https://chrome.google.com/webstore/detail/scraper/mbigbapnjcgaffohmbkdlecaccepngjd">Scraper</a>, making it very difficult to find in the Chrome app store if you don’t have that link.</p>
+<p>In Chrome, with the tool installed, let’s take a look at <a class="reference external" href="https://en.wikipedia.org/wiki/List_of_U.S._state_birds">US state birds</a>. Say you want to throw together a quick data viz about how many different states have the same state bird. Sometimes you can kind of copy and paste data from a table on a website to a spreadsheet, but it doesn’t always work. In those cases, this scraper extension can save you some time, once you know how to use it.</p>
+<div class="section" id="scraper-interface">
+<h2>Scraper Interface<a class="headerlink" href="#scraper-interface" title="Permalink to this headline">¶</a></h2>
+<p>Start by right clicking on one of the state name links and clicking on the new “Scrape similar” option. You’ll see something like this:</p>
+<p><img alt="Screenshot of scraper interface" src="_images/scraper1.png" /></p>
+<p>The Scraper interface has 3 main sections: the selector, the columns, and the preview pane.</p>
+<p>The <strong>selector</strong> section (marked with a 1) lets you use an xpath or jquery selector to pick out a unit of data to serve as a row in your output spreadsheet.</p>
+<p>The <strong>columns</strong> section (marked with a 2) uses xpath notation to select data for the columns of your spreadsheet. You can use the selector to select a container element in the page, and the xpath selectors in the columns section to select portions of that container that you want to record as attributes of whatever is in a row.</p>
+<p>The <strong>preview pane</strong> (marked with a 3) shows what your output will look like from the selectors you’ve specified. I find copying this to my clipboard to be the most reliable way to use this data.</p>
+<p>It may be helpful to you to to reference some cheat sheets for <a class="reference external" href="https://devhints.io/css">css selectors</a> and for <a class="reference external" href="https://devhints.io/xpath">xpath selectors</a>. I’ll note what each of the selectors we’ll use does, but these are useful for general reference.</p>
+</div>
+<div class="section" id="extracting-data">
+<h2>Extracting Data<a class="headerlink" href="#extracting-data" title="Permalink to this headline">¶</a></h2>
+<p>So what are we interested in in this table? We’ll shoot for these:</p>
+<ol class="simple">
+<li><p>State name</p></li>
+<li><p>State link</p></li>
+<li><p>Bird name</p></li>
+<li><p>Bird link</p></li>
+<li><p>Bird scientific name</p></li>
+<li><p>Bird image link</p></li>
+<li><p>Year when state bird was established</p></li>
+</ol>
+<p><img alt="Screenshot of a row from the table of state birds annotated with numbers corresponding to the information being extracted" src="_images/row.png" /></p>
+<p>In this case, we can copy and paste the text of the table into a spreadsheet okay, but the links and other data won’t come through as easily. Fortunately, it’s not that hard to get them using Scraper.</p>
+<p>Let’s start by taking a look at the current selector:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//table[1]/tbody/tr/th/a
 </pre></div>
 </div>
-<p>If you’re on Windows, <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code> might be the best option, although I find that the best way to use Python in Windows is to use the <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows subsystem for Linux</a>. That isn’t required for this workshop by any means, but it’s worth checking out if you’re using Windows and tired of it being weird for coding.</p>
-</div>
-<div class="section" id="option-2-pip">
-<h3>Option 2: pip<a class="headerlink" href="#option-2-pip" title="Permalink to this headline">¶</a></h3>
-<p>If you’re more comfortable with pip, or just don’t want to get set up with <code class="docutils literal notranslate"><span class="pre">poetry</span></code>, I’ve included a <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> as well. Running <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code> in the directory where you saved the workshop materials should also get your dependencies set up.</p>
-</div>
-<div class="section" id="option-3-manual-install">
-<h3>Option 3: Manual install<a class="headerlink" href="#option-3-manual-install" title="Permalink to this headline">¶</a></h3>
-<p>If you don’t want to do any of that, here’s just a list of the libraries to install, that you can do with as you please. This is the method that’s most likely to run into version conflicts, but as long as your Python version is more recent than 3.8, you should be okay. Hopefully.</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>requests
-beautifulsoup4
-jupyterlab
-pandas
-selenium
+<p>That’s just selecting the link in the row, but we want to scrape different info from each row. Let’s try modifying the selector by removing everything after the row element, <code class="docutils literal notranslate"><span class="pre">tr</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>//table[1]/tbody/tr
 </pre></div>
 </div>
+<p>Then we can change our first column selector to <code class="docutils literal notranslate"><span class="pre">th</span></code> to get this <strong>t</strong>able <strong>h</strong>eader element and see what we get. Click “Scrape” below the columns to update the preview.</p>
+<p>You may notice a bunch of extra junk at the bottom of the selector. That’s because this selector is saying “Get any table that is the first element in its container, then get the body of the table, then get every row in that table body”. It turns out that there are other tables inside of other containers on the page. We can try a more complex xpath expression, but instead, let’s take the opportunity to articulate a jQuery expression, which uses CSS syntax. Change the selector type to jQuery, then use this selector:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>table.wikitable &gt; tbody &gt; tr
+</pre></div>
 </div>
-<div class="section" id="selenium">
-<h3>Selenium<a class="headerlink" href="#selenium" title="Permalink to this headline">¶</a></h3>
-<p>The last part of the workshop uses the <code class="docutils literal notranslate"><span class="pre">selenium</span></code> library, and is set up to use Firefox’s <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> to make a Python-controlled browser. In order to make that work, you’ll need to <a class="reference external" href="https://www.mozilla.org/en-US/firefox/new/">install Firefox</a> if you don’t already have it, and then set up <a class="reference external" href="https://github.com/mozilla/geckodriver/">geckodriver</a>.</p>
-<p>To set up geckodriver, you’ll need to download and decompress the appropriate version for your OS from the <a class="reference external" href="https://github.com/mozilla/geckodriver/releases">geckodriver releases page</a>. That will give you a <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file, which needs to be in a location on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. A simple way to do this is to run <code class="docutils literal notranslate"><span class="pre">printenv</span> <span class="pre">PATH</span></code> on Mac/Linux or <code class="docutils literal notranslate"><span class="pre">PATH</span></code> in a Windows terminal. That will give you a list of locations already on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, so you can just move your <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file to one of them. My <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file is located at <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/</span></code>, for reference.</p>
+<p>That’s neater. That’s because we’re using a class selector, and selecting by class is easier to do in CSS-style selectors.</p>
+<p>With rows neatly selected, we can start in on getting data from cells in each row. We already have a selector for the header:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>th
+</pre></div>
 </div>
+<p>We want the link to the wiki page for the state as well, so we can use the <code class="docutils literal notranslate"><span class="pre">&#64;href</span></code> selector to get that attribute of an <code class="docutils literal notranslate"><span class="pre">a</span></code> tag in our <code class="docutils literal notranslate"><span class="pre">th</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>th/a/@href
+</pre></div>
 </div>
-<div class="section" id="using-these-materials">
-<h2>Using these materials<a class="headerlink" href="#using-these-materials" title="Permalink to this headline">¶</a></h2>
-<p>With the repository downloaded, you’ll find all of the files used in the workshop in the <code class="docutils literal notranslate"><span class="pre">book</span></code> directory, which is also what powers this site. You don’t need to run anything for the first section on the Chrome Scraper extension, but starting with the section on <code class="docutils literal notranslate"><span class="pre">requests</span></code>, you’ll want to run the corresponding Python notebook on your own system. They are numbered in the order that we’ll use them in the workshop.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="01_scraperChrome.html">Chrome Scraper Tool</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02_requests.html">Requests</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03_beautifulSoup.html">Beautiful Soup</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04_selenium.html">Selenium</a></li>
+<p>The next thing we want is the name of the bird, which is in the first <code class="docutils literal notranslate"><span class="pre">td</span></code> element in the table. Xpath is good at selecting the <em>nth</em> element within another element, so we can just use this:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>td[1]
+</pre></div>
+</div>
+<p>Update the preview to make sure everything worked. You should see something like this:</p>
+<p><img alt="Screenshot of the scraper interface showing the selectors described" src="_images/scraper2.png" /></p>
+</div>
+<div class="section" id="finishing-the-scrape">
+<h2>Finishing the Scrape<a class="headerlink" href="#finishing-the-scrape" title="Permalink to this headline">¶</a></h2>
+<p>With that, you should have the tools to select the rest of the data we’ve articulated. Try to extract the text from the other cells, as well as the image link for the picture of each state bird.</p>
+<p><em>Solution:</em></p>
+<div class="toggle docutils container">
+<p>Selector</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">table.wikitable</span> <span class="pre">&gt;</span> <span class="pre">tbody</span> <span class="pre">&gt;</span> <span class="pre">tr</span></code> (jquery)</p></li>
 </ul>
+<p>Columns</p>
+<ol class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">th</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">th/a/&#64;href</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">td[1]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">td[1]/a/&#64;href</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">td[2]</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">td[3]/a/img/&#64;src</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">td[4]</span></code></p></li>
+</ol>
+<p><img alt="screenshot of scraper interface with all selectors" src="_images/scraper3.png" /></p>
 </div>
 </div>
 </div>
@@ -372,11 +371,18 @@ selenium
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="01_scraperChrome.html" title="next page">
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Web Scraping with Python</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="02_requests.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Chrome Scraper Tool</p>
+        <p class="prev-next-title">Requests</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
