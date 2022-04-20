@@ -209,6 +209,11 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#getting-set-up">
    Getting set up
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#browsers-and-extension">
+   Browsers and extension
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#option-1-poetry">
@@ -228,6 +233,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#selenium">
      Selenium
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#m1-arm-architecture-mac-os-catalina">
+     M1 ARM Architecture / Mac OS Catalina
     </a>
    </li>
   </ul>
@@ -261,6 +271,11 @@ const thebe_selector_output = ".output, .cell_output"
   <a class="reference internal nav-link" href="#getting-set-up">
    Getting set up
   </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#browsers-and-extension">
+   Browsers and extension
+  </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#option-1-poetry">
@@ -280,6 +295,11 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#selenium">
      Selenium
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#m1-arm-architecture-mac-os-catalina">
+     M1 ARM Architecture / Mac OS Catalina
     </a>
    </li>
   </ul>
@@ -303,12 +323,16 @@ const thebe_selector_output = ".output, .cell_output"
 <p>This site is a collection of materials for a workshop on web scraping with Python. It’s intended to be used during the workshop, and for participants to reference after the fact. Even if you’re not attending this workshop, you might find it valuable to go through the code examples on your own, just know that that’s not the primary purpose of the materials.</p>
 <div class="section" id="getting-set-up">
 <h2>Getting set up<a class="headerlink" href="#getting-set-up" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="browsers-and-extension">
+<h2>Browsers and extension<a class="headerlink" href="#browsers-and-extension" title="Permalink to this headline">¶</a></h2>
+<p>In this workshop, we’ll be using both the <a class="reference external" href="https://www.google.com/chrome/">Chrome</a> and <a class="reference external" href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> browsers, so you’ll need both to follow along. In addition to the browsers, you’ll also need an addon for Chrome called <a class="reference external" href="https://chrome.google.com/webstore/detail/scraper/mbigbapnjcgaffohmbkdlecaccepngjd">Scraper</a>.</p>
 <p>The materials here require Python 3.8+, as well as a number of libraries. There are a few different ways to make sure that you have all of the dependencies set up. For any of them, it’s best if you download or clone the <a class="reference external" href="https://github.com/jaguillette/python-web-scraping-workshop">repository for this site</a>. All of the files for the contents of the workshop are in the <code class="docutils literal notranslate"><span class="pre">book</span></code> directory of the repository, but downloading the repository will also give you the setup information outside of that repository.</p>
 <div class="section" id="option-1-poetry">
 <h3>Option 1: Poetry<a class="headerlink" href="#option-1-poetry" title="Permalink to this headline">¶</a></h3>
 <p>I’m using poetry to manage my environment for this workshop, to make sure that I have an accurate list of what libraries are required for you to run my code. If you want to do the same, you can <a class="reference external" href="https://python-poetry.org/docs/">install poetry</a>, then run <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">install</span></code> in your terminal the directory where you saved this repository. That will create a virtual environment that matches mine.</p>
-<p>You still need to activate the environment after creating it. There are <a class="reference external" href="https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment">a few options for activating your environment</a>, but I prefer running this line of code:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>source `poetry env info --path`/bin/activate
+<p>You still need to activate the environment after creating it. There are <a class="reference external" href="https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment">a few options for activating your environment</a>, but I prefer running this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>poetry shell
 </pre></div>
 </div>
 <p>If you’re on Windows, <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code> might be the best option, although I find that the best way to use Python in Windows is to use the <a class="reference external" href="https://docs.microsoft.com/en-us/windows/wsl/about">Windows subsystem for Linux</a>. That isn’t required for this workshop by any means, but it’s worth checking out if you’re using Windows and tired of it being weird for coding.</p>
@@ -332,6 +356,17 @@ selenium
 <h3>Selenium<a class="headerlink" href="#selenium" title="Permalink to this headline">¶</a></h3>
 <p>The last part of the workshop uses the <code class="docutils literal notranslate"><span class="pre">selenium</span></code> library, and is set up to use Firefox’s <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> to make a Python-controlled browser. In order to make that work, you’ll need to <a class="reference external" href="https://www.mozilla.org/en-US/firefox/new/">install Firefox</a> if you don’t already have it, and then set up <a class="reference external" href="https://github.com/mozilla/geckodriver/">geckodriver</a>.</p>
 <p>To set up geckodriver, you’ll need to download and decompress the appropriate version for your OS from the <a class="reference external" href="https://github.com/mozilla/geckodriver/releases">geckodriver releases page</a>. That will give you a <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file, which needs to be in a location on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. A simple way to do this is to run <code class="docutils literal notranslate"><span class="pre">printenv</span> <span class="pre">PATH</span></code> on Mac/Linux or <code class="docutils literal notranslate"><span class="pre">PATH</span></code> in a Windows terminal. That will give you a list of locations already on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, so you can just move your <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file to one of them. My <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> file is located at <code class="docutils literal notranslate"><span class="pre">/usr/local/bin/</span></code>, for reference.</p>
+</div>
+<div class="section" id="m1-arm-architecture-mac-os-catalina">
+<h3>M1 ARM Architecture / Mac OS Catalina<a class="headerlink" href="#m1-arm-architecture-mac-os-catalina" title="Permalink to this headline">¶</a></h3>
+<p>M1 Macs still have some issues with Python. If you run into issues with the Jupyter kernel around <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, such as <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">psutil</span> <span class="pre">-</span> <span class="pre">mach-o</span> <span class="pre">file,</span> <span class="pre">but</span> <span class="pre">is</span> <span class="pre">an</span> <span class="pre">incompatible</span> <span class="pre">architecture</span> <span class="pre">(have</span> <span class="pre">'x86_64',</span> <span class="pre">need</span> <span class="pre">'arm64e'</span></code> or similar, this is due to the <code class="docutils literal notranslate"><span class="pre">psutil</span></code> wheels not being compatible with ARM, which is the architecture the newer Mac M1 processors use. You can confirm this is the issue by running the python CLI and importing <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, which will fail: <code class="docutils literal notranslate"><span class="pre">python3</span></code>, <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">psutil</span></code>. Hopefully <a class="reference external" href="https://github.com/giampaolo/psutil/issues/1954">this PR fix</a> will be merged for <code class="docutils literal notranslate"><span class="pre">psutil</span></code> soon. Until then, you can fix this issue by uninstalling and reinstalling <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, and building from scratch instead:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">shell</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">uninstall</span> <span class="pre">psutil</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--no-binary</span> <span class="pre">:all:</span> <span class="pre">psutil</span></code>
+Now try <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">run</span> <span class="pre">jupyter</span> <span class="pre">lab</span></code> and navigating to a notebook file - hopefully your kernel will not crash.</p></li>
+</ul>
+<p>Mac users may also need to overcome a security issue with <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code>. After adding <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> to your path, right click the executable and choose “Open”. This will open a security dialog which allows you to trust <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> manually. If you don’t do this, you may not be able to use it in your notebook as that trust dialog will not appear when <code class="docutils literal notranslate"><span class="pre">geckodriver</span></code> is first called by a script.</p>
 </div>
 </div>
 <div class="section" id="using-these-materials">

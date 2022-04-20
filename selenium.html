@@ -217,19 +217,6 @@ const thebe_selector_output = ".output, .cell_output"
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#casing-the-joint">
-   Casing the joint
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -242,19 +229,6 @@ const thebe_selector_output = ".output, .cell_output"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#casing-the-joint">
-   Casing the joint
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -263,8 +237,7 @@ const thebe_selector_output = ".output, .cell_output"
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="selenium">
 <h1>Selenium<a class="headerlink" href="#selenium" title="Permalink to this headline">¶</a></h1>
-<p>Sometimes, you’ll encounter a page that loads content after the initial page load. You might get a very small HTML file from requests that doesn’t contain everything on the page. This happens when a page is relying on JavaScript to load its contents, and can be difficult to deal with when scraping. One such site is the WHO photo archive. We’re going to take a look at scraping a <a class="reference external" href="https://photos.hq.who.int/galleries/172/who-staff-in-office">collection of photos of WHO staff</a> to show how you might approach scraping such a site.</p>
-<p>We’ll use Selenium to get around this page load issue. Selenium was built as a front-end testing tool, allowing developers to automatically make sure that their applications still work as they change them. This functionality translates well to web scraping, since it creates an actual web browser window controlled by Python. That will let our scripts take advantage of the browser’s ability to use JS content, and will let us scrape anything that we can see when we’re browsing a site as a normal user.</p>
+<p><a class="reference external" href="https://photos.hq.who.int/galleries/172/who-staff-in-office">Site to scrape</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
@@ -274,38 +247,18 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Run this cell if you&#39;re running this notebook out of WSL or another headless environment</span>
-<span class="c1"># If that doesn&#39;t make sense to you then it probably doesn&#39;t apply to you</span>
-<span class="c1"># I copied this out of a stack overflow post, for reference: https://stackoverflow.com/questions/46809135/webdriver-exceptionprocess-unexpectedly-closed-with-status-1</span>
-<span class="kn">from</span> <span class="nn">selenium.webdriver</span> <span class="kn">import</span> <span class="n">FirefoxOptions</span>
-
-<span class="n">opts</span> <span class="o">=</span> <span class="n">FirefoxOptions</span><span class="p">()</span>
-<span class="n">opts</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--headless&quot;</span><span class="p">)</span>
-<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">opts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We&#39;ll be using firefox for this. This is why you need both Firefox and geckodriver installed, so that Selenium has a browser to run</span>
-<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://photos.hq.who.int/galleries/172/who-staff-in-office&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Getting a url is pretty simple:</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;https://photos.hq.who.int/galleries/172/who-staff-in-office&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="casing-the-joint">
-<h2>Casing the joint<a class="headerlink" href="#casing-the-joint" title="Permalink to this headline">¶</a></h2>
-<p>If we take a look at this site, we can figure out what information we might want and where it lives. There’s a gallery of photos, and when you click on one, it shows more information about the photo. If we want to collect metadata about these photos, for instance to take a look at where the photos were taken and in what context, we’d need to click on each photo and copy that information out of the pop-up. Since the url isn’t changing when we click around, we have strong evidence that <code class="docutils literal notranslate"><span class="pre">requests</span></code> won’t work, although you’re welcome to try for yourself.</p>
-<p>It looks like the images have a class called “hovThumb” on them, so we can take a look and see if that will select what we want. Selenium has a built-in ability to use css selectors, which you’ll see below. You can always feed the page source into Beautiful Soup if you prefer that syntax, but we’ll look at how selenium thinks.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb&quot;</span><span class="p">)</span>
@@ -320,7 +273,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Hm, this is odd. If we look at the end of the stack trace, we can see that we can’t click on the element we’ve selected (the first thing with a <code class="docutils literal notranslate"><span class="pre">hovthumb</span></code> tag), because another element obscures it. It looks like that also has the same <code class="docutils literal notranslate"><span class="pre">hovThumb</span></code> tag, but with an additional <code class="docutils literal notranslate"><span class="pre">blankDL</span></code> tag. Let’s try selecting elements with both those tags.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb.blankDL&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
@@ -328,7 +280,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Success! We’re able to click on that, and looking at our live browser, it looks right. Looking again in our inspector tool, it looks like we can find the HTML for the pop-up window in an element with the id <code class="docutils literal notranslate"><span class="pre">previewPopupWindow</span></code>. I’ll show how you might get the HTML content of that to feed to another parser, if you prefer.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">popupContent</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;previewPopupWindow&quot;</span><span class="p">)</span>
@@ -338,14 +289,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can use the get_attribute function to get the &quot;innerHTML&quot; for anything you&#39;ve selected in Selenium</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">popupContent</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;innerHTML&quot;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">popupContent</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s2">&quot;innerHTML&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Going back to our inspector, we can find a few things that might be of interest. One is the top headline, and another is the description below it. There’s more interesting information, but that’s for you to hack on later!</p>
-<p>Fortunately, the headline and description look like they have their own ids, so it’s very easy for us to grab text from them.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;ctblc_headline&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
@@ -360,7 +308,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Now that we’ve got some information, we need to close the popup. Remember how we couldn’t click on something because it was obscured by something else? That will happen again if we leave the popup up.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.btn-close-popup&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
@@ -368,7 +315,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Like we did in Beautiful Soup, we’ll define a function to standardize what we just did. Assuming we have a popup open, we can use this function to extract the headline and description from it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_popup_content</span><span class="p">():</span>
@@ -382,8 +328,7 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s try applying our function!</span>
-<span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb.blankDL&quot;</span><span class="p">):</span>
     <span class="n">link</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
     <span class="n">metadata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_popup_content</span><span class="p">())</span>
@@ -391,15 +336,12 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Oh no! We’ve run into a problem. Our script couldn’t find the headline element. There are two ways this could happen. One is that sometimes a popup might not have a title, which we can accommodate in our function. The other is more complicated.</p>
-<p>Essentially, our script is running at the speed of a python script, executing code as fast as it possibly can. The browser, however, is running at the speed of a browser, which has to wait for network calls and stuff. We only want our script to go looking for data once the data is there, so we have to wait until a consistent element is loaded until we have it try. To do that, we need to import a bunch of other stuff from selenium.</p>
-<p>It may comfort you to know that I didn’t know how to do all this just because I’m so smart, I looked it up on stack overflow and copied over some code from someone further along. Here’s that post for reference: <a class="reference external" href="https://stackoverflow.com/questions/26566799/wait-until-page-is-loaded-with-selenium-webdriver-for-python">https://stackoverflow.com/questions/26566799/wait-until-page-is-loaded-with-selenium-webdriver-for-python</a>. Using other people’s code is a great way to learn, since you still have to figure out how to make it work in your context.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">EC</span>
 <span class="kn">from</span> <span class="nn">selenium.webdriver.common.by</span> <span class="kn">import</span> <span class="n">By</span>
-<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">TimeoutException</span><span class="p">,</span> <span class="n">NoSuchElementException</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">TimeoutException</span>
 </pre></div>
 </div>
 </div>
@@ -420,14 +362,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make sure the popup is closed before we start!</span>
-<span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.btn-close-popup&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">delay</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># seconds</span>
 <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb.blankDL&quot;</span><span class="p">):</span>
@@ -442,32 +376,6 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>What’s blocking us now? Taking a closer look, it seems like it’s the cookie banner! You can close it in the visible browser, but it’s not a bad idea to build closing it into your script.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.cc_btn_accept_all&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Trying again, without the bar</span>
-<span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">delay</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># seconds</span>
-<span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb.blankDL&quot;</span><span class="p">):</span>
-    <span class="n">link</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s1">&#39;menuDetailsTab&#39;</span><span class="p">)))</span>
-        <span class="n">metadata</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_popup_content</span><span class="p">())</span>
-        <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">delay</span><span class="p">)</span><span class="o">.</span><span class="n">until</span><span class="p">(</span><span class="n">EC</span><span class="o">.</span><span class="n">invisibility_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s1">&#39;menuDetailsTab&#39;</span><span class="p">)))</span>
-    <span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Loading took too much time!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Hey, we finished without errors! Let’s see how much stuff we have.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
@@ -475,17 +383,11 @@ const thebe_selector_output = ".output, .cell_output"
 </div>
 </div>
 </div>
-<p>Ah, that’s not good. We have 50 things, but looking at the page, you can see it says there are 110 files in the gallery. Why do we only have 50?</p>
-<div class="toggle docutils container">
-<p>If you scroll down the page, you’ll see the page get longer with more items. When we got our list of links to iterate through, we only saw what was there at the initial page load. We’ll need to update our list as we go to get everything. As an alternative, we can keep track of how many links we’ve accessed, update the list every time we hit a new link, and just access the next link in sequence.</p>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">metadata</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="n">delay</span> <span class="o">=</span> <span class="mi">3</span> <span class="c1"># seconds</span>
-<span class="c1"># This line should scare you! We have to be really confident that we&#39;ll get an IndexError to use this,</span>
-<span class="c1"># otherwise the code could get stuck in an infinite loop.</span>
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">link</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_elements</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;css selector&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;.hovThumb.blankDL&quot;</span><span class="p">)[</span><span class="n">counter</span><span class="p">]</span>
@@ -507,30 +409,6 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
 </pre></div>
-</div>
-</div>
-</div>
-<p>That looks better! Now, your mission, should you choose to accept it (and if we have time) is to get more data from each of those popups and include it in our list of metadata. When you’re done, you can use the lines below to export the data to a spreadsheet using <code class="docutils literal notranslate"><span class="pre">pandas</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;who_photo_metadata.csv&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
