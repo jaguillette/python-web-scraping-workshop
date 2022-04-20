@@ -4,15 +4,19 @@ This site is a collection of materials for a workshop on web scraping with Pytho
 
 ## Getting set up
 
+## Browsers and extension
+
+In this workshop, we'll be using both the [Chrome](https://www.google.com/chrome/) and [Firefox](https://www.mozilla.org/en-US/firefox/new/) browsers, so you'll need both to follow along. In addition to the browsers, you'll also need an addon for Chrome called [Scraper](https://chrome.google.com/webstore/detail/scraper/mbigbapnjcgaffohmbkdlecaccepngjd).
+
 The materials here require Python 3.8+, as well as a number of libraries. There are a few different ways to make sure that you have all of the dependencies set up. For any of them, it's best if you download or clone the [repository for this site](https://github.com/jaguillette/python-web-scraping-workshop). All of the files for the contents of the workshop are in the `book` directory of the repository, but downloading the repository will also give you the setup information outside of that repository.
 
 ### Option 1: Poetry
 
 I'm using poetry to manage my environment for this workshop, to make sure that I have an accurate list of what libraries are required for you to run my code. If you want to do the same, you can [install poetry](https://python-poetry.org/docs/), then run `poetry install` in your terminal the directory where you saved this repository. That will create a virtual environment that matches mine.
 
-You still need to activate the environment after creating it. There are [a few options for activating your environment](https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment), but I prefer running this line of code:
+You still need to activate the environment after creating it. There are [a few options for activating your environment](https://python-poetry.org/docs/basic-usage/#using-your-virtual-environment), but I prefer running this command:
 
-    source `poetry env info --path`/bin/activate
+    poetry shell
 
 If you're on Windows, `poetry shell` might be the best option, although I find that the best way to use Python in Windows is to use the [Windows subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about). That isn't required for this workshop by any means, but it's worth checking out if you're using Windows and tired of it being weird for coding.
 
