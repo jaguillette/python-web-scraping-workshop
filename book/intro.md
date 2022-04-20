@@ -36,6 +36,16 @@ The last part of the workshop uses the `selenium` library, and is set up to use 
 
 To set up geckodriver, you'll need to download and decompress the appropriate version for your OS from the [geckodriver releases page](https://github.com/mozilla/geckodriver/releases). That will give you a `geckodriver` file, which needs to be in a location on your `PATH`. A simple way to do this is to run `printenv PATH` on Mac/Linux or `PATH` in a Windows terminal. That will give you a list of locations already on your `PATH`, so you can just move your `geckodriver` file to one of them. My `geckodriver` file is located at `/usr/local/bin/`, for reference.
 
+### M1 ARM Architecture / Mac OS Catalina
+
+M1 Macs still have some issues with Python. If you run into issues with the Jupyter kernel around `psutil`, such as `import psutil - mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e'` or similar, this is due to the `psutil` wheels not being compatible with ARM, which is the architecture the newer Mac M1 processors use. You can confirm this is the issue by running the python CLI and importing `psutil`, which will fail: `python3`, `import psutil`. Hopefully [this PR fix](https://github.com/giampaolo/psutil/issues/1954) will be merged for `psutil` soon. Until then, you can fix this issue by uninstalling and reinstalling `psutil`, and building from scratch instead:
+- `poetry shell`
+- `pip3 uninstall psutil`
+- `pip install --no-binary :all: psutil`
+Now try `poetry run jupyter lab` and navigating to a notebook file - hopefully your kernel will not crash.
+
+Mac users may also need to overcome a security issue with `geckodriver`. After adding `geckodriver` to your path, right click the executable and choose "Open". This will open a security dialog which allows you to trust `geckodriver` manually. If you don't do this, you may not be able to use it in your notebook as that trust dialog will not appear when `geckodriver` is first called by a script.
+
 ## Using these materials
 
 With the repository downloaded, you'll find all of the files used in the workshop in the `book` directory, which is also what powers this site. You don't need to run anything for the first section on the Chrome Scraper extension, but starting with the section on `requests`, you'll want to run the corresponding Python notebook on your own system. They are numbered in the order that we'll use them in the workshop.
