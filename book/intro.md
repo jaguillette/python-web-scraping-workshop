@@ -42,12 +42,18 @@ To set up geckodriver, you'll need to download and decompress the appropriate ve
 
 ### M1 ARM Architecture / Mac OS Catalina
 
-M1 Macs still have some issues with Python. If you run into issues with the Jupyter kernel around `psutil`, such as `import psutil - mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e'` or similar, this is due to the `psutil` wheels not being compatible with ARM, which is the architecture the newer Mac M1 processors use. You can confirm this is the issue by running the python CLI and importing `psutil`, which will fail: `python3`, `import psutil`. Hopefully [this PR fix](https://github.com/giampaolo/psutil/issues/1954) will be merged for `psutil` soon. Until then, you can fix this issue by uninstalling and reinstalling `psutil`, and building from scratch instead:
+M1 Macs still have some issues with Python. If you run into issues with the Jupyter kernel around `psutil`, such as `import psutil - mach-o file, but is an incompatible architecture (have 'x86_64', need 'arm64e'` or similar, this is due to the `psutil` wheels not being compatible with ARM, which is the architecture the newer Mac M1 processors use. You can confirm this is the issue by running the python CLI and importing `psutil`, which will fail: `python3`, `import psutil`. Hopefully [this PR fix](https://github.com/giampaolo/psutil/issues/1954) will be merged for `psutil` soon. Until then, you can fix this issue by either downgrading `ipykernel`, or uninstalling and building `psutil` from sources instead:
+
+#### Downgrading `ipykernel` to last version without `psutil` dependency
+`poetry add ipykernel="6.9.1"`
+#### Installing `psutil` from sources
 - `poetry shell`
 - `pip3 uninstall psutil`
 - `pip install --no-binary :all: psutil`
+
 Now try `poetry run jupyter lab` and navigating to a notebook file - hopefully your kernel will not crash.
 
+#### Geckodriver
 Mac users may also need to overcome a security issue with `geckodriver`. After adding `geckodriver` to your path, right click the executable and choose "Open". This will open a security dialog which allows you to trust `geckodriver` manually. If you don't do this, you may not be able to use it in your notebook as that trust dialog will not appear when `geckodriver` is first called by a script.
 
 ## Using these materials
